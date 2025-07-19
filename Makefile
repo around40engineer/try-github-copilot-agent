@@ -6,7 +6,7 @@ FAIL_WORDS := テスト失敗 チュピチュピチャパチャパドゥビド�
 FAIL_WORD := $(shell echo $(FAIL_WORDS) | tr ' ' '\n' | awk 'BEGIN{srand();}{a[NR]=$$0}END{print a[int(rand()*NR+1)]}')
 
 prepare:
-	docker-compose up -d
+	docker compose up -d
 	cd frontend && npm install
 
 f-preview:

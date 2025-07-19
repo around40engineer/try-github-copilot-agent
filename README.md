@@ -38,10 +38,11 @@
 ## 目次
 
 1. [プロジェクトについて](#プロジェクトについて)
-2. [環境](#環境)
-3. [ディレクトリ構成](#ディレクトリ構成)
-4. [開発環境構築](#開発環境構築)
-5. [トラブルシューティング](#トラブルシューティング)
+2. [GitHub Copilot Agentテスト内容](#github-copilot-agentテスト内容)
+3. [環境](#環境)
+4. [ディレクトリ構成](#ディレクトリ構成)
+5. [開発環境構築](#開発環境構築)
+6. [トラブルシューティング](#トラブルシューティング)
 
 <!-- READMEの作成方法のドキュメントのリンク -->
 <!-- <br />  -->
@@ -56,18 +57,18 @@
 <br /> -->
 <!-- プロジェクト名を記載 -->
 
-## vite-and-springboot-web-app-template
+## try-github-copilot-agent
 
-Webアプリ用のテンプレートリポジトリ
+GitHub Copilot Agentの機能を確認・テストするためのリポジトリ
 
 <!-- プロジェクトについて -->
 
 ## プロジェクトについて
 
-デモとして簡単なTodoアプリを提供します。</br>
+このリポジトリは、GitHub Copilot Agentの様々な機能をテスト・検証するために作成されました。</br>
 フロントエンドのフレームワークとしてVite(React+Typescript)を使用し、バックエンドのフレームワークとしてSpringBoot(Kotlin)を使用しています。</br>
 Postgresqlをデータベースとして使用しています。ローカル開発環境としてDockerを使用してデータベースを立ち上げています。</br>
-このテンプレートを使うことで一般的なWebアプリの開発に必要な環境をすぐに構築することができます。</br>
+このリポジトリを使うことでGitHub Copilot Agentの機能を実際のプロジェクト環境で試すことができます。</br>
 
 
 <!-- プロジェクトの概要を記載　-->
@@ -77,6 +78,26 @@ Postgresqlをデータベースとして使用しています。ローカル開�
 <!--     <a href="Backlogのwikiリンク"><strong>プロジェクト詳細 »</strong></a> -->
 <!--     <br /> -->
 <!--     <br />  -->
+
+<p>(<a href="#top">トップへ</a>)</p>
+
+## GitHub Copilot Agentテスト内容
+
+このリポジトリでは以下のGitHub Copilot Agent機能をテスト・検証できます：
+
+### 主要テスト項目
+- **コード生成**: フロントエンド（React+TypeScript）とバックエンド（Kotlin+Spring Boot）でのコード生成
+- **リファクタリング支援**: 既存コードの改善提案とリファクタリング
+- **バグ修正**: Issue作成からコード修正までの一連の流れ
+- **テストコード生成**: 単体テストと統合テストの自動生成
+- **ドキュメント更新**: READMEやコメントの自動更新
+- **コードレビュー**: Pull Requestでのコードレビュー支援
+
+### 利用シナリオ
+1. **新機能開発**: GitHub Copilot Agentを使った機能追加
+2. **保守作業**: 既存コードの改善とリファクタリング
+3. **バグ対応**: Issue から修正までの自動化
+4. **テスト拡充**: テストカバレッジ向上のための支援
 
 <p>(<a href="#top">トップへ</a>)</p>
 
@@ -162,51 +183,31 @@ Postgresqlをデータベースとして使用しています。ローカル開�
 
 ## 開発環境構築
 
-<!-- コンテナの作成方法、パッケージのインストール方法など、開発環境構築に必要な情報を記載 -->
+<!-- GitHub Copilot Agentのテスト環境構築に必要な情報を記載 -->
+
+### 前提条件
+
+GitHub Copilot Agentの機能をテストするために以下が必要です：
+- GitHub Copilot の有効なサブスクリプション
+- GitHub Copilot Agent へのアクセス権限
+- Docker Desktop のインストール
+- Node.js 22.4.1 以上
+- Java 21 以上
 
 ### コンテナの作成と起動
 
-.env ファイルを以下の環境変数例と[環境変数の一覧](#環境変数の一覧)を元に作成
+### 環境変数の設定
 
-.envは現在使ってません。
-必要に応じて作成してください。
+現在このリポジトリでは特別な環境変数の設定は不要です。
+必要に応じて .env ファイルを作成してカスタマイズしてください。
 
-[//]: # (MYSQL_ROOT_PASSWORD=root)
-
-[//]: # (MYSQL_DATABASE=django-db)
-
-[//]: # (MYSQL_USER=django)
-
-[//]: # (MYSQL_PASSWORD=django)
-
-[//]: # (MYSQL_HOST=db)
-
-[//]: # (MYSQL_PORT=3306)
-
-[//]: # (SECRET_KEY=django)
-
-[//]: # (DJANGO_SETTINGS_MODULE=project.settings.local)
-
-[//]: # (ALLOWED_HOSTS=localhost)
-
-[//]: # (MYSQL_ROOT_PASSWORD=root)
-
-[//]: # (MYSQL_DATABASE=django-db)
-
-[//]: # (MYSQL_USER=django)
-
-[//]: # (MYSQL_PASSWORD=django)
-
-[//]: # (MYSQL_HOST=db)
-
-[//]: # (MYSQL_PORT=3306)
-
-[//]: # (SECRET_KEY=django)
-
-[//]: # (DJANGO_SETTINGS_MODULE=project.settings.local)
-
-
-(必要に応じて.env ファイルを作成後)</br>
+基本的なデータベース接続情報：
+- データベース: PostgreSQL
+- ホスト: localhost
+- ポート: 5432
+- データベース名: postgres
+- ユーザー名: postgres
+- パスワード: postgres
 以下のコマンドで開発環境を構築
 
 ```
@@ -224,6 +225,22 @@ make preview
 http://localhost:8080 にアクセスできるか確認
 アクセスできたら成功
 
+### GitHub Copilot Agentの利用開始
+
+環境構築が完了したら、以下の方法でGitHub Copilot Agentの機能をテストできます：
+
+1. **GitHub Issues での機能テスト**
+   - 新しいIssueを作成してGitHub Copilot Agentに対応を依頼
+   - バグ修正、機能追加、リファクタリングなどを試す
+
+2. **Pull Request での機能テスト**
+   - コードレビューでのGitHub Copilot Agent活用
+   - 改善提案やバグ検出機能のテスト
+
+3. **直接的なコード支援**
+   - IDE内でのコード生成支援
+   - リアルタイムでの実装サポート
+
 ### コンテナの停止
 
 以下のコマンドでコンテナを停止することができます
@@ -232,33 +249,17 @@ http://localhost:8080 にアクセスできるか確認
 make down
 ```
 
-### 環境変数の一覧
-
-| 変数名                    | 役割                          | デフォルト値                             | DEV 環境での値            |
-|------------------------|-----------------------------|------------------------------------|----------------------|
-| MYSQL_ROOT_PASSWORD    | MySQL のルートパスワード（Docker で使用） | root                               |                      |
-| MYSQL_DATABASE         | MySQL のデータベース名（Docker で使用）  | django-db                          |                      |
-| MYSQL_USER             | MySQL のユーザ名（Docker で使用）     | django                             |                      |
-| MYSQL_PASSWORD         | MySQL のパスワード（Docker で使用）    | django                             |                      |
-| MYSQL_HOST             | MySQL のホスト名（Docker で使用）     | db                                 |                      |
-| MYSQL_PORT             | MySQL のポート番号（Docker で使用）    | 3306                               |                      |
-| SECRET_KEY             | Django のシークレットキー            | secretkey                          | 他者に推測されないランダムな値にすること |
-| ALLOWED_HOSTS          | リクエストを許可するホスト名              | localhost 127.0.0.1 [::1] back web | フロントのホスト名            |
-| DEBUG                  | デバッグモードの切り替え                | True                               | False                |
-| TRUSTED_ORIGINS        | CORS で許可するオリジン              | http://localhost                   |                      |
-| DJANGO_SETTINGS_MODULE | Django アプリケーションの設定モジュール     | project.settings.local             | project.settings.dev |
-
 ### コマンド一覧
 
 | Make           | 実行する処理                            | 元のコマンド                                              |
 |----------------|-----------------------------------|-----------------------------------------------------|
-| make prepare   | node_modules のインストール、コンテナの起動      | cd frontend && npm install</br>docker-compose up -d |
+| make prepare   | node_modules のインストール、コンテナの起動      | cd frontend && npm install</br>docker compose up -d |
 | make f-test    | フロントエンドのテストを実行                    | cd frontend && npm run test                         |
 | make b-test    | バックエンドのテストを実行                     | cd backend &&  ./gradle test                        |
 | make test      | フロントエンドとバックエンドのテストを実行             | make f-test && make b-test                          |
 | make f-preview | フロントエンドを起動（localhost:5173）        | cd frontend && npm run test                         |
 | make preview   | フロントエンドとバックエンドを起動(localhost:8080) | cd frontend && npm run build</br>cd frontend &&     |
-| make down      | 立ち上げたコンテナを停止する                    | docker-compose down                                 |
+| make down      | 立ち上げたコンテナを停止する                    | docker compose down                                 |
 
 
 <!-- ### リモートデバッグの方法
@@ -268,11 +269,7 @@ make down
 
 ## トラブルシューティング
 
-### .env: no such file or directory
-
-.env ファイルがないので環境変数の一覧を参考に作成しましょう
-
-### docker daemon is not running
+### Docker Desktop が起動していない
 
 Docker Desktop が起動できていないので起動させましょう
 
