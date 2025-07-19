@@ -17,6 +17,7 @@ describe('App', () => {
 
         expect(await screen.findByRole('heading',{name:'memo app example'})).toBeInTheDocument()
         expect(await screen.findByPlaceholderText('メモを入力')).toBeInTheDocument()
+        expect(await screen.findByLabelText('日付')).toBeInTheDocument() // date input field
         expect(await screen.findByRole('button',{name:'save'})).toBeInTheDocument()
     })
     it('レンダーされたらgetMemosを呼び、返り値を表示する', async () => {
@@ -48,5 +49,21 @@ describe('App', () => {
 
         expect(getMemos).toHaveBeenCalledTimes(2)
         expect(await screen.findByText('test1')).toBeInTheDocument()
+    })
+    it('日付入力欄が表示される', async () => {
+        vi.mocked(getMemos).mockResolvedValue({memos: []})
+        render(<App />)
+
+        const dateInput = await screen.findByLabelText('日付')
+        expect(dateInput).toHaveAttribute('type', 'date')
+    })
+    it('日付入力欄に値を入力できる', async () => {
+        vi.mocked(getMemos).mockResolvedValue({memos: []})
+        render(<App />)
+
+        const dateInput = screen.getByLabelText('日付')
+        await userEvent.type(dateInput, '2024-01-15')
+        
+        expect(dateInput).toHaveValue('2024-01-15')
     })
 })
