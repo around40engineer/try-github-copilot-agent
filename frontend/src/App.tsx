@@ -4,6 +4,7 @@ import {getMemos, saveMemo} from './repositories/MemoRepository.ts';
 
 export const App = () => {
     const inputRef = useRef<HTMLInputElement>(null)
+    const dateInputRef = useRef<HTMLInputElement>(null)
     const [memos, setMemos] = useState<string[]>([])
 
     useEffect(()=>{
@@ -14,6 +15,14 @@ export const App = () => {
     return (
         <>
             <h1>memo app example</h1>
+            <div className="date-input">
+                <label htmlFor="production-date">日付</label>
+                <input 
+                    id="production-date"
+                    ref={dateInputRef} 
+                    type='date' 
+                />
+            </div>
             <div className="input">
                 <input ref={inputRef} type='text' placeholder='メモを入力'/>
                 <button onClick={async ()=>{

@@ -5,6 +5,23 @@
   text-align: center;
 }
 
+.date-input {
+  margin-bottom: 1rem;
+}
+
+.date-input label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+.date-input input[type="date"] {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;
