@@ -19,6 +19,13 @@ export const App = () => {
                 <input ref={inputRef} type='text' placeholder='メモを入力'/>
                 <label htmlFor="date-input">日付</label>
                 <input ref={dateRef} id="date-input" type='date'/>
+                {/* 組名入力機能追加 */}
+                <label htmlFor="group-select">組</label>
+                <select id="group-select" aria-label="組名" defaultValue="">
+                  <option value="" disabled hidden></option>
+                  <option value="KT131">KT131</option>
+                  <option value="KT141">KT141</option>
+                </select>
                 <button onClick={async ()=>{
                     if(inputRef.current){
                         await saveMemo(inputRef.current.value)
