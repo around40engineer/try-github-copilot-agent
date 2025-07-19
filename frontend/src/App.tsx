@@ -19,7 +19,8 @@ export const App = () => {
                 <button onClick={async ()=>{
                     if(inputRef.current){
                         await saveMemo(inputRef.current.value)
-                        setMemos([...memos, inputRef.current.value])
+                        const res = await getMemos()
+                        setMemos(res.memos)
                         inputRef.current.value = ''
                     }
                 }}>save</button>
