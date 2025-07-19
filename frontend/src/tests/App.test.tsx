@@ -1,5 +1,5 @@
 import {render, screen} from '@testing-library/react';
-import {describe, expect, it} from 'vitest';
+import {describe, expect, it, vi, afterEach} from 'vitest';
 import App from '../App.tsx';
 import {getMemos, saveMemo} from '../repositories/MemoRepository.ts';
 import {userEvent} from '@testing-library/user-event';
@@ -12,15 +12,16 @@ describe('App', () => {
         vi.mocked(getMemos).mockClear()
     })
     it('レンダーされたら各種要素が表示される', async() => {
-        vi.mocked(getMemos).mockResolvedValue([])
+        vi.mocked(getMemos).mockResolvedValue({memos: []})
         render(<App />)
 
         expect(await screen.findByRole('heading',{name:'memo app example'})).toBeInTheDocument()
         expect(await screen.findByPlaceholderText('メモを入力')).toBeInTheDocument()
+        expect(await screen.findByLabelText('日付')).toBeInTheDocument() // date input field
         expect(await screen.findByRole('button',{name:'save'})).toBeInTheDocument()
     })
     it('レンダーされたらgetMemosを呼び、返り値を表示する', async () => {
-        vi.mocked(getMemos).mockResolvedValue(['test1','test2'])
+        vi.mocked(getMemos).mockResolvedValue({memos: ['test1','test2']})
         render(<App />)
 
         expect(getMemos).toHaveBeenCalled()
@@ -28,7 +29,7 @@ describe('App', () => {
         expect(await screen.findByText('test2')).toBeInTheDocument()
     })
     it('メモを入力してsaveボタンを押したら、saveMemoを呼ぶ', async () => {
-        vi.mocked(getMemos).mockResolvedValue([])
+        vi.mocked(getMemos).mockResolvedValue({memos: []})
         render(<App />)
 
         await userEvent.type(screen.getByRole('textbox'), 'hogehoge')
@@ -38,8 +39,8 @@ describe('App', () => {
     })
     it('メモを入力してsaveボタンを押したら、getMemoを呼び、返り値を表示する', async () => {
         vi.mocked(getMemos)
-            .mockResolvedValueOnce([])
-            .mockResolvedValueOnce(['test1'])
+            .mockResolvedValueOnce({memos: []})
+            .mockResolvedValueOnce({memos: ['test1']})
 
         render(<App />)
 
@@ -48,5 +49,21 @@ describe('App', () => {
 
         expect(getMemos).toHaveBeenCalledTimes(2)
         expect(await screen.findByText('test1')).toBeInTheDocument()
+    })
+    it('日付入力欄が表示される', async () => {
+        vi.mocked(getMemos).mockResolvedValue({memos: []})
+        render(<App />)
+
+        const dateInput = await screen.findByLabelText('日付')
+        expect(dateInput).toHaveAttribute('type', 'date')
+    })
+    it('日付入力欄に値を入力できる', async () => {
+        vi.mocked(getMemos).mockResolvedValue({memos: []})
+        render(<App />)
+
+        const dateInput = screen.getByLabelText('日付')
+        await userEvent.type(dateInput, '2024-01-15')
+        
+        expect(dateInput).toHaveValue('2024-01-15')
     })
 })
