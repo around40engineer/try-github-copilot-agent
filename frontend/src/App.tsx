@@ -26,6 +26,8 @@ export const App = () => {
                   <option value="KT131">KT131</option>
                   <option value="KT141">KT141</option>
                 </select>
+                <label htmlFor="start-time">開始時刻</label>
+                <input id="start-time" aria-label="開始時刻" type="time" step="60" />
                 <button onClick={async ()=>{
                     if(inputRef.current){
                         await saveMemo(inputRef.current.value)
