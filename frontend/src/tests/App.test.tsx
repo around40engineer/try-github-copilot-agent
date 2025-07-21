@@ -66,4 +66,30 @@ describe('App', () => {
         
         expect(dateInput).toHaveValue('2024-01-15')
     })
+    it('「開始時刻」テキストとテキストボックスが表示される', async () => {
+        vi.mocked(getMemos).mockResolvedValue({ memos: [] });
+        render(<App />);
+        expect(await screen.findByText('開始時刻')).toBeInTheDocument();
+        const timeInput = screen.getByLabelText('開始時刻');
+        expect(timeInput).toBeInTheDocument();
+        expect(timeInput).toHaveAttribute('type', 'time');
+    });
+
+    it('開始時刻テキストボックスの時計アイコンをクリックすると時間選択ができる', async () => {
+        vi.mocked(getMemos).mockResolvedValue({ memos: [] });
+        render(<App />);
+        const timeInput = screen.getByLabelText('開始時刻');
+        await userEvent.click(timeInput);
+        await userEvent.type(timeInput, '13:45');
+        expect(timeInput).toHaveValue('13:45');
+    });
+
+    it('開始時刻テキストボックスは24時間表記・1分単位で選択できる', async () => {
+        vi.mocked(getMemos).mockResolvedValue({ memos: [] });
+        render(<App />);
+        const timeInput = screen.getByLabelText('開始時刻');
+        await userEvent.clear(timeInput);
+        await userEvent.type(timeInput, '23:59');
+        expect(timeInput).toHaveValue('23:59');
+    });
 })
